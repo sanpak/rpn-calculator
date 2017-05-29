@@ -64,6 +64,14 @@ class RPNCalculator
   end
 
   def evaluate(string)
-    
+    array = tokens(string)
+    array.each do |el|
+      push(el) if el.class == Fixnum
+      plus if el == :+
+      times if el == :*
+      divide if el == :/
+      minus if el == :-
+    end
+    value
   end
 end
