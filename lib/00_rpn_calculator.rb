@@ -11,28 +11,59 @@ class RPNCalculator
   end
 
   def plus
-    @stack << @stack.pop + @stack.pop
+    unless @stack == []
+      @stack << @stack.pop + @stack.pop
+    else
+      raise 'calculator is empty'
+    end
   end
 
   def minus
-    temp = @stack.pop
-    @stack << @stack.pop - temp
+    unless @stack == []
+      temp = @stack.pop
+      @stack << @stack.pop - temp
+    else
+      raise 'calculator is empty'
+    end
   end
 
   def divide
+    unless @stack == []
+      temp = @stack.pop.to_f
+      @stack << @stack.pop.to_f / temp
+    else
+      raise 'calculator is empty'
+    end
   end
 
   def value
-    @stack[-1]
+    unless @stack == []
+      @stack[-1]
+    else
+      raise 'calculator is empty'
+    end
   end
 
   def times
-    @stack << @stack.pop * @stack.pop
+    unless @stack == []
+      @stack << @stack.pop * @stack.pop
+    else
+      raise 'calculator is empty'
+    end
   end
 
-  def tokens
+  def tokens(string)
+    string = string.split(" ")
+    operator = ["*","-","/","+"]
+    digits = ("0".."9").to_a
+    (0...string.length).each do |idx|
+      string[idx] = string[idx].to_i if digits.include?(string[idx])
+      string[idx] = string[idx].to_sym if operator.include?(string[idx])
+    end
+    string
   end
 
-  def evaluate
+  def evaluate(string)
+    
   end
 end
